@@ -27,8 +27,8 @@ def profile(request, username):
     posts = author.posts.all()
     following = False
     if request.user.is_authenticated:
-        if Follow.objects.filter(user=request.user, author=author).exists():
-            following = True
+        following = Follow.objects.filter(
+            user=request.user, author=author).exists()
     context = {
         'author': author,
         'following': following,
@@ -122,5 +122,5 @@ def profile_follow(request, username):
 @login_required
 def profile_unfollow(request, username):
     author = get_object_or_404(User, username=username)
-    Follow.objects.get(user=request.user, author=author).delete()
+    get_object_or_404(Follow, user=request.user, author=author).delete()
     return redirect('posts:profile', author)
