@@ -14,7 +14,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.all()
+    posts = group.posts.select_related('author')
     context = {
         'group': group
     }
@@ -24,7 +24,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    posts = author.posts.all()
+    posts = author.posts.select_related('group')
     following = False
     if request.user.is_authenticated:
         following = Follow.objects.filter(
@@ -39,12 +39,10 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    author = Post.objects.filter(author=post.author).count()
     comments = post.comments.all()
     form = CommentForm(request.POST or None)
     context = {
         'post': post,
-        'author': author,
         'comments': comments,
         'form': form,
     }

@@ -140,15 +140,12 @@ class PostPagesTests(TestCase):
         self.assertEqual(context_author, self.user.username)
 
     def test_post_detail_page_show(self):
-        posts_count = Post.objects.count()
         response = self.authorized_client.get(
             reverse('posts:post_detail', kwargs={'post_id': self.post.pk})
         )
         context_post = response.context['post']
-        context_posts_count = response.context['author']
         context_comment = response.context.get('comments')[0]
 
-        self.assertEqual(context_posts_count, posts_count)
         self.assertEqual(context_comment, self.comment)
         PostPagesTests.get_assert_context(self, context_post)
 
