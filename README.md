@@ -1,6 +1,5 @@
 # hw05_final
 
-# Проект Yatube v4
 ### Описание 
 Yatube - это социальная сеть с авторизацией, персональными лентами, комментариями и подписками на авторов статей.
 
@@ -55,7 +54,6 @@ python3 manage.py createsuperuser
 
 # адрес панели администратора
 http://127.0.0.1:8000/admin
-
+```
 ### Автор:
-
 Погодин Глеб - [https://github.com/GlebPogod1n](https://github.com/GlebPogod1n) 
